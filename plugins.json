@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Netflix Mirror",
+    "pkg": "com.horis.cncverse",
+    "version": 17,
+    "description": "Watch movies and series from Netflix Mirror",
+    "url": "https://raw.githubusercontent.com/Hexated/Cloudstream-Extensions/builds/NetflixMirror.apk",
+    "language": "hi",
+    "types": ["movie", "tv"]
+  }
+]
