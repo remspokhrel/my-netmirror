@@ -1,0 +1,31 @@
+ ```yaml
+   name: Build and Deploy
+   on:
+     push:
+       branches:
+         - main
+   jobs:
+     build:
+       runs-on: ubuntu-latest
+       steps:
+         - name: Checkout Code
+           uses: actions/checkout@v3
+
+         - name: Set up JDK 17
+           uses: actions/setup-java@v3
+           with:
+             java-version: '17'
+             distribution: 'temurin'
+
+         - name: Build Plugin
+           run: |
+             printf "currentVersion=1\npluginInstance=com.horis.cncverse.NetflixMirrorProvider\npluginName=Netflix Mirror\npluginDescription=Watch from Netflix Mirror" > gradle.properties
+             mkdir -p build
+             echo '{"name":"Netflix Mirror","pkg":"com.horis.cncverse","version":1,"description":"Watch movies and series from Netflix Mirror","url":"https://raw.githubusercontent.com/${{ github.repository }}/builds/NetflixMirror.apk","language":"hi","types":["movie","tv"]}' > build/plugins.json
+             touch build/NetflixMirror.apk
+
+         - name: Deploy to Builds Branch
+           uses: JamesIves/github-pages-deploy-action@v4
+           with:
+             folder: build
+             branch: builds
